@@ -1,4 +1,4 @@
-package com.tokorogadokkoi.java.realworldapp.domain.user;
+package com.tokorogadokkoi.java.realworldapp.domain.user.model;
 
 import com.tokorogadokkoi.java.realworldapp.domain.shared.email.EmailAddress;
 import com.tokorogadokkoi.java.realworldapp.domain.shared.exception.DomainException;

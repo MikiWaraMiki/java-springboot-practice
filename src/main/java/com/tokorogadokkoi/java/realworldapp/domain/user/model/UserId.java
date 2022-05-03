@@ -1,10 +1,9 @@
-package com.tokorogadokkoi.java.realworldapp.domain.user;
+package com.tokorogadokkoi.java.realworldapp.domain.user.model;
 
 import com.github.f4b6a3.ulid.Ulid;
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.tokorogadokkoi.java.realworldapp.domain.shared.exception.DomainException;
 import com.tokorogadokkoi.java.realworldapp.domain.shared.exception.ErrorCode;
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.Value;
 import lombok.val;

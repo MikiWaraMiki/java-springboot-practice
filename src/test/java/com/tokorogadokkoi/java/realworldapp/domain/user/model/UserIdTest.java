@@ -1,8 +1,9 @@
-package com.tokorogadokkoi.java.realworldapp.domain.user;
+package com.tokorogadokkoi.java.realworldapp.domain.user.model;
 
 import com.github.f4b6a3.ulid.Ulid;
 import com.tokorogadokkoi.java.realworldapp.domain.shared.exception.DomainException;
 import com.tokorogadokkoi.java.realworldapp.domain.shared.exception.ErrorCode;
+import com.tokorogadokkoi.java.realworldapp.domain.user.model.UserId;
 import lombok.val;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
