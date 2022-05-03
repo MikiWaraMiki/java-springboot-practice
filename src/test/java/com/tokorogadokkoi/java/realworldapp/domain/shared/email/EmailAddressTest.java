@@ -14,6 +14,13 @@ class EmailAddressTest {
     @DisplayName("不変条件テスト")
     class ConstructorTest {
         @Test
+        void 文字数が255文字以内のメールアドレスの場合はオブジェクトが作成されること() throws DomainException {
+            val value = "user1@example.com";
+            val email = new EmailAddress(value);
+
+            assertEquals(value, email.getValue());
+        }
+        @Test
         void nullの場合はNullPointerExceptionが発生すること() {
             assertThrows(NullPointerException.class, () -> {
                 new EmailAddress(null);

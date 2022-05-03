@@ -15,11 +15,11 @@ import org.jooq.Domain;
 public class EmailAddress {
     private static final int MAX_LENGTH = 255;
     // NOTE: RFCに厳密に準拠しない
-    private static final String EMAIL_PATTERN = "[^\s]@[^\s]";
+    private static final String EMAIL_PATTERN = "[^\s]+@[^\s]+";
 
     String value;
 
-    EmailAddress(@NonNull final String value) throws DomainException {
+    public EmailAddress(@NonNull final String value) throws DomainException {
         if (value.isEmpty()) {
             throw new DomainException(
                     "メールアドレスが空文字です",
