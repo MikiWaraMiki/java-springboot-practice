@@ -23,7 +23,7 @@ public class UserId {
         this.value = value;
     }
 
-    static UserId create() throws DomainException {
+    public static UserId create() throws DomainException {
         val value = UlidCreator.getUlid();
 
         return new UserId(value.toString());
