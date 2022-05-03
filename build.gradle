@@ -26,6 +26,7 @@ dependencies {
 	implementation 'org.flywaydb:flyway-core'
 	// https://mvnrepository.com/artifact/com.github.f4b6a3/ulid-creator
 	implementation 'com.github.f4b6a3:ulid-creator:4.1.2'
+	implementation 'commons-validator:commons-validator:1.7'
 	runtimeOnly 'org.postgresql:postgresql'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -34,6 +35,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	jooqGenerator 'org.postgresql:postgresql'
 	jooqGenerator "jakarta.xml.bind:jakarta.xml.bind-api:3.0.1"
+	testImplementation "org.mockito:mockito-core:4.5.1"
+	testImplementation "net.bytebuddy:byte-buddy:1.12.9"
 
 }
 
