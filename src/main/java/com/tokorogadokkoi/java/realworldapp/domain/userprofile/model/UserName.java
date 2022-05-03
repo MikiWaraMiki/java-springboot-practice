@@ -1,4 +1,4 @@
-package com.tokorogadokkoi.java.realworldapp.domain.userprofile;
+package com.tokorogadokkoi.java.realworldapp.domain.userprofile.model;
 
 import com.tokorogadokkoi.java.realworldapp.domain.shared.exception.DomainException;
 import com.tokorogadokkoi.java.realworldapp.domain.shared.exception.ErrorCode;
