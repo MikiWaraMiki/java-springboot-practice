@@ -1,0 +1,19 @@
+services:
+  db:
+    image: "postgres:13.6"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: passWord
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./docker/postgres/data:/var/lib/postgresql/data
+  cache:
+    image: "redis:6"
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL

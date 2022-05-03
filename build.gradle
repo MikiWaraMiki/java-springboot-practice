@@ -1,0 +1,67 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.7'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'org.flywaydb.flyway' version "8.5.10"
+	id "nu.studer.jooq" version "7.1.1"
+}
+
+group = 'com.tokoroga-dokkoi.java'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-jooq'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.flywaydb:flyway-core'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	jooqGenerator 'org.postgresql:postgresql'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+flyway {
+	url = System.getenv("DB_URL") ?: "jdbc:postgresql://localhost:5432/realworldapp-local"
+	user = System.getenv("DB_USER") ?: "root"
+	password = System.getenv("DB_PASSWORD") ?: "root"
+	baselineOnMigrate = true
+	locations = ['classpath:db/migration']
+}
+
+jooq {
+	configurations {
+		main {
+			generationTool {
+				jdbc {
+					driver = "org.postgresql.Driver"
+					url = System.getenv("DB_URL") ?: "jdbc:postgresql://localhost:5432/realworldapp-local"
+					user = System.getenv("DB_USER") ?: "root"
+					password = System.getenv("DB_PASSWORD") ?: "root"
+				}
+				generator {
+					name = "org.jooq.codegen.DefaultGenerator"
+					target {
+						packageName = "com.tokorogadokkoi.java.realwordapp"
+						directory = "build/generated-src/jooq/main"
+					}
+				}
+			}
+		}
+	}
+}
