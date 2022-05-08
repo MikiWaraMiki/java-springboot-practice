@@ -29,7 +29,7 @@ public class UserId {
         return new UserId(value.toString());
     }
 
-    static UserId reConstructor(final String value) throws DomainException {
+    public static UserId reConstructor(final String value) throws DomainException {
         return new UserId(value);
     }
 

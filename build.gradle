@@ -52,8 +52,9 @@ flyway {
 	url = System.getenv("DB_URL") ?: "jdbc:postgresql://localhost:5432/realworldapp-local"
 	user = System.getenv("DB_USER") ?: "root"
 	password = System.getenv("DB_PASSWORD") ?: "passWord"
+	baselineVersion = "1.0.0"
 	baselineOnMigrate = true
-	locations = ['classpath:db/migration']
+	locations = ["filesystem:src/main/resources/db/migration"]
 }
 
 jooq {
@@ -71,6 +72,10 @@ jooq {
 					target {
 						packageName = "com.tokorogadokkoi.java.realwordapp"
 						directory = "build/generated-src/jooq/main"
+					}
+					database {
+						name = "org.jooq.meta.postgres.PostgresDatabase"
+						inputSchema = "public"
 					}
 				}
 			}
