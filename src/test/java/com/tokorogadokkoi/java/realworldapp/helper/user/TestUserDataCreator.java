@@ -6,15 +6,18 @@ import com.tokorogadokkoi.java.realworldapp.domain.user.model.User;
 import com.tokorogadokkoi.java.realworldapp.domain.user.model.UserId;
 import com.tokorogadokkoi.java.realworldapp.domain.user.repository.UserRepository;
 import lombok.val;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.swing.text.html.Option;
 import java.util.Optional;
 
+@Component
 public class TestUserDataCreator {
     private final UserRepository userRepository;
 
     public TestUserDataCreator(
-            UserRepository userRepository
+            @Autowired UserRepository userRepository
     ) {
         this.userRepository = userRepository;
     }

@@ -7,5 +7,6 @@ import com.tokorogadokkoi.java.realworldapp.domain.userauthaccount.model.UserAut
 import java.util.Optional;
 
 public interface UserAuthAccountRepository {
+    public void insert(UserAuthAccount userAuthAccount);
     public Optional<UserAuthAccount> getByUserAuthAccountId(UserAuthAccountId userAuthAccountId) throws DomainException;
 }

@@ -7,6 +7,7 @@ import lombok.Value;
 import lombok.val;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * ユーザー認証アカウントID
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  */
 @Value
 public class UserAuthAccountId {
-    private static final Character CONNECTION_AND_ID_SEPARATE_CHAR = '|';
+    private static final String CONNECTION_AND_ID_SEPARATE_CHAR = "[|]";
     // NOTE: [コネクション名]|[ID部]
     private static final int SEPARATE_RESULT_LENGTH = 2;
     private static final int ID_MAX_LENGTH = 32;
@@ -42,7 +43,7 @@ public class UserAuthAccountId {
     }
 
     public static UserAuthAccountId fromFullId(@NonNull final String fullId) throws DomainException {
-        val splitSeparatorResult = fullId.split(CONNECTION_AND_ID_SEPARATE_CHAR.toString());
+        val splitSeparatorResult = fullId.split(CONNECTION_AND_ID_SEPARATE_CHAR);
 
         if (splitSeparatorResult.length != SEPARATE_RESULT_LENGTH) {
             throw new DomainException("IDが不正な値です", ErrorCode.INVALID_REGEX_FORMAT);
