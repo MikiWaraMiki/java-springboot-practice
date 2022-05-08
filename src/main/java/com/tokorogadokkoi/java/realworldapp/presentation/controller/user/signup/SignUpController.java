@@ -1,8 +1,10 @@
 package com.tokorogadokkoi.java.realworldapp.presentation.controller.user.signup;
 
+import com.auth0.exception.Auth0Exception;
 import com.tokorogadokkoi.java.realworldapp.domain.shared.email.EmailAddress;
 import com.tokorogadokkoi.java.realworldapp.domain.shared.exception.DomainException;
 import com.tokorogadokkoi.java.realworldapp.presentation.controller.user.signup.response.SignUpResponse;
+import com.tokorogadokkoi.java.realworldapp.usecase.shared.auth.AuthApiService;
 import com.tokorogadokkoi.java.realworldapp.usecase.shared.exception.AssertionFailException;
 import com.tokorogadokkoi.java.realworldapp.usecase.user.signup.UserSignUpUseCase;
 import com.tokorogadokkoi.java.realworldapp.usecase.user.signup.UserSignUpUseCaseRequest;
@@ -16,11 +18,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/api/v1/private/user/signup")
 @CrossOrigin("*")
 public class SignUpController {
+    private final AuthApiService authApiService;
     private final UserSignUpUseCase userSignUpUseCase;
 
     SignUpController(
+            AuthApiService authApiService,
             UserSignUpUseCase userSignUpUseCase
     ) {
+        this.authApiService = authApiService;
         this.userSignUpUseCase = userSignUpUseCase;
     }
 
@@ -34,8 +39,15 @@ public class SignUpController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    SignUpResponse create() throws DomainException, AssertionFailException {
-        val request = new UserSignUpUseCaseRequest(new EmailAddress("user1@example.com"));
+    SignUpResponse create() throws DomainException, AssertionFailException, Auth0Exception {
+        val authentication = SecurityContextHolder.getContext().getAuthentication();
+        final Jwt jwt = (Jwt) authentication.getPrincipal();
+
+        val emailAddress = this.authApiService.getEmailFromToken(
+                jwt.getTokenValue()
+        );
+
+        val request = new UserSignUpUseCaseRequest(emailAddress);
         val result = this.userSignUpUseCase.exec(request);
 
         return new SignUpResponse(result.userId());
