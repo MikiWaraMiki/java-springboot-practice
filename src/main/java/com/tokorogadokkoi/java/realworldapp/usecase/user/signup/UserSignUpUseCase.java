@@ -43,7 +43,7 @@ public class UserSignUpUseCase implements UseCase<UserSignUpUseCaseRequest, User
 
         val user = User.create(args.email());
 
-        this.userRepository.create(user);
+        this.userRepository.insert(user);
 
         return new UserSignUpResult(
                 user.getId().getValue(),
