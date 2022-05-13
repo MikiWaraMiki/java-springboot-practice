@@ -3,6 +3,7 @@ package com.tokorogadokkoi.java.realworldapp.presentation.controller.user.signup
 import com.auth0.exception.Auth0Exception;
 import com.tokorogadokkoi.java.realworldapp.domain.shared.email.EmailAddress;
 import com.tokorogadokkoi.java.realworldapp.domain.shared.exception.DomainException;
+import com.tokorogadokkoi.java.realworldapp.domain.userauthaccount.model.UserAuthAccountId;
 import com.tokorogadokkoi.java.realworldapp.presentation.controller.user.signup.response.SignUpResponse;
 import com.tokorogadokkoi.java.realworldapp.usecase.shared.auth.AuthApiService;
 import com.tokorogadokkoi.java.realworldapp.usecase.shared.exception.AssertionFailException;
@@ -46,8 +47,11 @@ public class SignUpController {
         val emailAddress = this.authApiService.getEmailFromToken(
                 jwt.getTokenValue()
         );
+        val userAuthAccountId = UserAuthAccountId.fromFullId(
+                jwt.getSubject()
+        );
 
-        val request = new UserSignUpUseCaseRequest(emailAddress);
+        val request = new UserSignUpUseCaseRequest(emailAddress, userAuthAccountId);
         val result = this.userSignUpUseCase.exec(request);
 
         return new SignUpResponse(result.userId());

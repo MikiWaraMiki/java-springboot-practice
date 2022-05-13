@@ -4,23 +4,30 @@ import com.tokorogadokkoi.java.realworldapp.domain.shared.exception.DomainExcept
 import com.tokorogadokkoi.java.realworldapp.domain.user.model.User;
 import com.tokorogadokkoi.java.realworldapp.domain.user.model.UserId;
 import com.tokorogadokkoi.java.realworldapp.domain.user.repository.UserRepository;
+import com.tokorogadokkoi.java.realworldapp.domain.userauthaccount.model.UserAuthAccount;
+import com.tokorogadokkoi.java.realworldapp.domain.userauthaccount.repository.UserAuthAccountRepository;
 import com.tokorogadokkoi.java.realworldapp.usecase.shared.UseCase;
 import com.tokorogadokkoi.java.realworldapp.usecase.shared.exception.AssertionFailException;
 import com.tokorogadokkoi.java.realworldapp.usecase.shared.exception.ErrorCode;
 import lombok.val;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * ユーザー会員登録ユースケースクラス
  */
 @Service
+@Transactional
 public class UserSignUpUseCase implements UseCase<UserSignUpUseCaseRequest, UserSignUpResult> {
     private final UserRepository userRepository;
+    private final UserAuthAccountRepository userAuthAccountRepository;
 
     public UserSignUpUseCase(
-            UserRepository userRepository
+            UserRepository userRepository,
+            UserAuthAccountRepository userAuthAccountRepository
     ){
         this.userRepository = userRepository;
+        this.userAuthAccountRepository = userAuthAccountRepository;
     }
 
     /**
@@ -44,6 +51,12 @@ public class UserSignUpUseCase implements UseCase<UserSignUpUseCaseRequest, User
         val user = User.create(args.email());
 
         this.userRepository.insert(user);
+
+        val userAuthAccount = new UserAuthAccount(
+                user.getId(),
+                args.userAuthAccountId()
+        );
+        this.userAuthAccountRepository.insert(userAuthAccount);
 
         return new UserSignUpResult(
                 user.getId().getValue(),

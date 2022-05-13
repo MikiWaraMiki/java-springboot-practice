@@ -19,7 +19,7 @@ public class UserAuthAccountId {
     // NOTE: [コネクション名]|[ID部]
     private static final int SEPARATE_RESULT_LENGTH = 2;
     private static final int ID_MAX_LENGTH = 32;
-    private static final String ID_PATTERN = "^[0-9a-z]+$";
+    private static final String ID_PATTERN = "^[0-9a-zA-Z]+$";
 
     UserAuthAccountConnectionType connection;
     String id;

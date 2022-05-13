@@ -19,9 +19,9 @@ public class Auth0ApiService implements AuthApiService {
     private final AuthAPI api;
 
     Auth0ApiService(
-            @Value("auth0.domain") final String domain,
-            @Value("auth0.clientId")  final String clientId,
-            @Value("auth0.clientSecret")  final String clientSecret
+            @Value("${auth0.domain}") final String domain,
+            @Value("${auth0.clientId}")  final String clientId,
+            @Value("${auth0.clientSecret}")  final String clientSecret
     ) {
         this.api = new AuthAPI(
             domain,
@@ -42,7 +42,6 @@ public class Auth0ApiService implements AuthApiService {
 
         val userInfo = request.execute();
 
-        System.out.println(userInfo.getValues().toString());
         return new EmailAddress(
                 (String) userInfo.getValues().get("email")
         );
