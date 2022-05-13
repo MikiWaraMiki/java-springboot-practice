@@ -11,7 +11,7 @@ import lombok.Value;
 @Value
 public class UserName {
     private static int MAX_LENGTH = 15;
-    private static String ALLOW_CHAR_PATTERN = "^[a-zA-Z0-9][a-zA-Z0-9_].";
+    private static String ALLOW_CHAR_PATTERN = "^[a-zA-Z0-9][a-zA-Z0-9_]+$";
 
     String value;
 
