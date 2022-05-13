@@ -28,9 +28,13 @@ public class SpringSecurityUserSessionProvider implements UserSessionProvider {
 
         val userAuthAccountId = UserAuthAccountId.fromFullId(jwt.getSubject());
 
-        val userAuthAccount = this.userAuthAccountRepository.getByUserAuthAccountId(
-                userAuthAccountId
-        ).orElseThrow(() -> new AssertionFailException("ログインしてください", ErrorCode.OPERATION_NOT_PERMITTED));
+        val userAuthAccount = this.userAuthAccountRepository
+                .getByUserAuthAccountId(
+                    userAuthAccountId
+                )
+                .orElseThrow(
+                        () -> new AssertionFailException("ログインしてください", ErrorCode.OPERATION_NOT_PERMITTED)
+                );
 
         return new UserSession(userAuthAccount.userId());
     }
